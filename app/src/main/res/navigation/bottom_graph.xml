@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/emptyFragment"
+        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
+        android:label="EmptyFragment"
+        tools:layout="@layout/empty_screen_fragment"/>
+    <fragment
+        android:id="@+id/emptyFragment2"
+        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
+        android:label="EmptyFragment"
+        tools:layout="@layout/empty_screen_fragment" />
+    <fragment
+        android:id="@+id/emptyFragment3"
+        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
+        android:label="EmptyFragment"
+        tools:layout="@layout/empty_screen_fragment" />
+    <fragment
+        android:id="@+id/emptyFragment4"
+        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
+        android:label="EmptyFragment"
+        tools:layout="@layout/empty_screen_fragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.effectivemobile.presentation.mainscreen.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main"/>
+</navigation>
