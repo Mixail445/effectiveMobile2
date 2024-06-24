@@ -84,7 +84,7 @@ object AppModule {
     @Singleton
     @Provides
     @Named("Child")
-    fun provideRouterChild(): Router = RouterImpl(R.id.bottomNavigationView)
+    fun provideRouterChild(): Router = RouterImpl(R.id.childNavGraph)
 
     @Singleton
     @Provides
