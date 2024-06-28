@@ -3,31 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.effectivemobile.presentation.MainActivity">
     <item
-        android:id="@+id/ticket"
+        android:id="@+id/air_graph"
         android:title="@string/ticket"
         android:icon="@drawable/plane"
         />
     <item
-        android:id="@+id/hotel"
+        android:id="@+id/emptyFragment2"
         android:title="@string/hotel"
-        android:icon="@drawable/hotel"
-        app:showAsAction="always" />
+        android:icon="@drawable/hotel" />
     <item
-        android:id="@+id/map"
+        android:id="@+id/emptyFragment3"
         android:title="@string/map"
-        app:showAsAction="always"
         android:icon="@drawable/point_map"
         />
     <item
-        android:id="@+id/subscribe"
+        android:id="@+id/emptyFragment4"
         android:title="@string/subcribe"
-        app:showAsAction="always"
         android:icon="@drawable/notification"
         />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/emptyFragment5"
         android:title="@string/profile"
-        app:showAsAction="always"
         android:icon="@drawable/person"
         />
 

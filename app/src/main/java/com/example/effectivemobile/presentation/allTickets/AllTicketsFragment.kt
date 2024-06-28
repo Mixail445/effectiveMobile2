@@ -13,13 +13,12 @@ import com.example.effectivemobile.presentation.common.RecyclerViewItemDecoratio
 import com.example.effectivemobile.presentation.common.Router
 import com.example.effectivemobile.presentation.common.launchAndRepeatWithViewLifecycle
 import com.example.effectivemobile.presentation.common.subscribe
-import com.example.effectivemobile.presentation.mainscreen.LambdaFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-class AllTicketsFragment() : Fragment() {
+class AllTicketsFragment : Fragment() {
     private var _binding: FragmentAllTicketsBinding? = null
     private val binding get() = _binding!!
     private val navArgs by navArgs<AllTicketsFragmentArgs>()
@@ -40,6 +39,7 @@ class AllTicketsFragment() : Fragment() {
     @Named("Host")
     @Inject
     lateinit var router: Router
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +48,7 @@ class AllTicketsFragment() : Fragment() {
         _binding = FragmentAllTicketsBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -55,6 +56,7 @@ class AllTicketsFragment() : Fragment() {
         initViewModel()
         initView()
     }
+
     private fun initView() {
         with(binding) {
             rcAllTickets.apply {
@@ -65,30 +67,36 @@ class AllTicketsFragment() : Fragment() {
             ivBack.setOnClickListener { viewModel.onEvent(AllTicketsView.Event.OnClickBack) }
         }
     }
+
     private fun initViewModel() {
         with(viewModel) {
             subscribe(uiLabels, ::handleUiLabel)
             launchAndRepeatWithViewLifecycle { uiState.collect(::handleState) }
         }
     }
+
     private fun handleUiLabel(uiLabel: AllTicketsView.UiLabel): Unit =
         when (uiLabel) {
-            is AllTicketsView.UiLabel.ShowBackScreen -> router.navigateTo(uiLabel.screen)
+            is AllTicketsView.UiLabel.ShowBackScreen -> router.back()
         }
+
     private fun handleState(model: AllTicketsView.Model): Unit =
         model.run {
             adapter.items = model.allTicketsItem
             binding.tvCity.text = model.title
             binding.tvInfo.text = model.bottomTitle
         }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     override fun onStart() {
         super.onStart()
         router.init(this, requireActivity().supportFragmentManager)
     }
+
     override fun onStop() {
         super.onStop()
         router.clear()

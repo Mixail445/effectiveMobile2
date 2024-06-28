@@ -9,7 +9,7 @@ import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.navArgs
-import com.example.effectivemobile.databinding.DialogFragmentSearchBinding
+import com.example.effectivemobile.databinding.FragmentSearchDialogBinding
 import com.example.effectivemobile.presentation.common.Router
 import com.example.effectivemobile.presentation.common.launchAndRepeatWithViewLifecycle
 import com.example.effectivemobile.presentation.common.subscribe
@@ -22,12 +22,12 @@ import javax.inject.Named
 
 @AndroidEntryPoint
 class DialogSearch : BottomSheetDialogFragment() {
-    private var _binding: DialogFragmentSearchBinding? = null
+    private var _binding: FragmentSearchDialogBinding? = null
     private val binding get() = _binding!!
 
-    @Named("Host")
+    @Named("Child")
     @Inject
-    lateinit var router: Router
+    lateinit var routerChild: Router
 
     private val navArgs by navArgs<DialogSearchArgs>()
 
@@ -41,6 +41,7 @@ class DialogSearch : BottomSheetDialogFragment() {
             )
         }
     }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -54,9 +55,10 @@ class DialogSearch : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = DialogFragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
         dialog.setOnShowListener {
@@ -71,6 +73,7 @@ class DialogSearch : BottomSheetDialogFragment() {
         }
         return dialog
     }
+
     private fun setupFullHeight(bottomSheet: View) {
         val layoutParams = bottomSheet.layoutParams
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
@@ -79,24 +82,31 @@ class DialogSearch : BottomSheetDialogFragment() {
 
     private fun initView() {
         with(binding) {
-            val clickListeners = mapOf(
-                ivFire to DialogView.Event.OnClickIcFire,
-                ivAnywhere to DialogView.Event.OnClickIcAnywhere,
-                ivWeekend to DialogView.Event.OnClickIcWeekend,
-                ivHardTravle to DialogView.Event.OnClickIcHard,
-                groupOne to DialogView.Event.OnClickGroupOne,
-                groupTwo to DialogView.Event.OnClickGroupTwo,
-                groupThree to DialogView.Event.OnClickGroupThree,
-            )
+            val clickListeners =
+                mapOf(
+                    ivFire to DialogView.Event.OnClickIcFire,
+                    ivAnywhere to DialogView.Event.OnClickIcAnywhere,
+                    ivWeekend to DialogView.Event.OnClickIcWeekend,
+                    ivHardTravle to DialogView.Event.OnClickIcHard,
+                    groupOne to DialogView.Event.OnClickGroupOne,
+                    groupTwo to DialogView.Event.OnClickGroupTwo,
+                    groupThree to DialogView.Event.OnClickGroupThree,
+                )
 
             clickListeners.forEach { (view, event) ->
                 view.setOnClickListener { viewModel.onEvent(event) }
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
-        router.init(this, requireActivity().supportFragmentManager)
+        routerChild.init(this, requireActivity().supportFragmentManager)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        routerChild.clear()
     }
 
     private fun initViewModel() {
@@ -105,6 +115,7 @@ class DialogSearch : BottomSheetDialogFragment() {
             launchAndRepeatWithViewLifecycle { uiState.collect(::handleState) }
         }
     }
+
     private fun handleState(model: DialogView.Model): Unit =
         model.run {
             binding.tvTop.text = model.textTitle
@@ -112,7 +123,7 @@ class DialogSearch : BottomSheetDialogFragment() {
 
     private fun handleUiLabel(uiLabel: DialogView.UiLabel): Unit =
         when (uiLabel) {
-            is DialogView.UiLabel.ShowEmptyScreen -> router.navigateTo(uiLabel.screen)
-            is DialogView.UiLabel.ShowSearchScreen -> router.navigateTo(uiLabel.screen)
+            is DialogView.UiLabel.ShowEmptyScreen -> routerChild.navigateTo(uiLabel.screen)
+            is DialogView.UiLabel.ShowSearchScreen -> routerChild.navigateTo(uiLabel.screen)
         }
 }

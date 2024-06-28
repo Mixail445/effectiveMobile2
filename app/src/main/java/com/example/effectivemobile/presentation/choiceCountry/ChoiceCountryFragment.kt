@@ -8,23 +8,28 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.navArgs
-import com.example.effectivemobile.databinding.ChoiseCountryFragmentBinding
-import com.example.effectivemobile.presentation.common.* // ktlint-disable no-wildcard-imports
-import com.example.effectivemobile.presentation.mainscreen.LambdaFactory
+import com.example.effectivemobile.databinding.FragmentChoiceCountryBinding
+import com.example.effectivemobile.presentation.common.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
+
 @AndroidEntryPoint
-class ChoiceCountryFragment() : Fragment() {
-    private var _binding: ChoiseCountryFragmentBinding? = null
+class ChoiceCountryFragment : Fragment() {
+    private var _binding: FragmentChoiceCountryBinding? = null
     private val binding get() = _binding!!
+
+    @Named("Child")
+    @Inject
+    lateinit var routerChild: Router
 
     private val navArgs by navArgs<ChoiceCountryFragmentArgs>()
 
     @Inject
     lateinit var factory: ChoiceCountryViewModel.Factory
+
     private val viewModel: ChoiceCountryViewModel by viewModels {
-        com.example.effectivemobile.presentation.choiceCountry.LambdaFactory(this) { handle: SavedStateHandle ->
+        LambdaFactory(this) { handle: SavedStateHandle ->
             factory.build(
                 handle,
                 city = navArgs.title,
@@ -34,17 +39,15 @@ class ChoiceCountryFragment() : Fragment() {
     }
     private val adapter = ChoiceCountryAdapter()
 
-    @Named("Host")
-    @Inject
-    lateinit var router: Router
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = ChoiseCountryFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentChoiceCountryBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -59,6 +62,7 @@ class ChoiceCountryFragment() : Fragment() {
             launchAndRepeatWithViewLifecycle { uiState.collect(::handleState) }
         }
     }
+
     private fun handleState(model: ChoiceScreenView.Model): Unit =
         model.run {
             adapter.items = model.shortList
@@ -67,9 +71,10 @@ class ChoiceCountryFragment() : Fragment() {
             binding.tvTop.text = model.textCityTop
             binding.tvSearchBottom.text = model.textCityBottom
         }
+
     private fun handleUiLabel(uiLabel: ChoiceScreenView.UiLabel): Unit =
         when (uiLabel) {
-            is ChoiceScreenView.UiLabel.ShowScreenAllTickets -> router.navigateTo(uiLabel.screen)
+            is ChoiceScreenView.UiLabel.ShowScreenAllTickets -> routerChild.navigateTo(uiLabel.screen)
             is ChoiceScreenView.UiLabel.ShowDatePicker -> showFilterDatePicker(uiLabel.date)
         }
 
@@ -95,16 +100,19 @@ class ChoiceCountryFragment() : Fragment() {
             bvToDate.setOnClickListener { viewModel.onEvent(ChoiceScreenView.Event.OnCalendarClick) }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     override fun onStart() {
         super.onStart()
-        router.init(this, requireActivity().supportFragmentManager)
+        routerChild.init(this, requireActivity().supportFragmentManager)
     }
+
     override fun onStop() {
         super.onStop()
-        router.clear()
+        routerChild.clear()
     }
 }

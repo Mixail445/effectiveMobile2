@@ -16,8 +16,9 @@ class BottomFragment : Fragment() {
     private var _binding: FragmentBottomNavBinding? = null
 
     @Inject
-    @Named("Host")
+    @Named("Child")
     lateinit var router: Router
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
