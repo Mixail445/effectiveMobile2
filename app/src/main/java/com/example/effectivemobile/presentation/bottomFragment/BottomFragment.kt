@@ -1,23 +1,28 @@
 package com.example.effectivemobile.presentation.bottomFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.effectivemobile.appComponent
 import com.example.effectivemobile.databinding.FragmentBottomNavBinding
 import com.example.effectivemobile.presentation.common.Router
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
-@AndroidEntryPoint
 class BottomFragment : Fragment() {
     private var _binding: FragmentBottomNavBinding? = null
 
     @Inject
     @Named("Child")
     lateinit var router: Router
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this@BottomFragment)
+        super.onAttach(context)
+    }
 
     private val binding get() = _binding!!
 

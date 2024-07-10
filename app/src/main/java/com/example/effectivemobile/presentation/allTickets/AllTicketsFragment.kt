@@ -1,5 +1,6 @@
 package com.example.effectivemobile.presentation.allTickets
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.navArgs
+import com.example.effectivemobile.appComponent
 import com.example.effectivemobile.databinding.FragmentAllTicketsBinding
 import com.example.effectivemobile.presentation.common.RecyclerViewItemDecoration
 import com.example.effectivemobile.presentation.common.Router
 import com.example.effectivemobile.presentation.common.launchAndRepeatWithViewLifecycle
 import com.example.effectivemobile.presentation.common.subscribe
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
-@AndroidEntryPoint
 class AllTicketsFragment : Fragment() {
     private var _binding: FragmentAllTicketsBinding? = null
     private val binding get() = _binding!!
@@ -26,7 +26,7 @@ class AllTicketsFragment : Fragment() {
     @Inject
     lateinit var factory: AllTicketsViewModel.Factory
     private val viewModel: AllTicketsViewModel by viewModels {
-        com.example.effectivemobile.presentation.allTickets.LambdaFactory(this) { handle: SavedStateHandle ->
+        LambdaFactory(this) { handle: SavedStateHandle ->
             factory.build(
                 handle,
                 city = navArgs.title,
@@ -35,6 +35,11 @@ class AllTicketsFragment : Fragment() {
         }
     }
     private val adapter = AllTicketsAdapter()
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     @Named("Host")
     @Inject

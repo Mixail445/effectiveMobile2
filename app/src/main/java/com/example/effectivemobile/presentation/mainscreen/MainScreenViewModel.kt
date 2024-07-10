@@ -1,28 +1,31 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.example.effectivemobile.presentation.mainscreen
 
 import androidx.lifecycle.*
+import androidx.savedstate.SavedStateRegistryOwner
 import com.example.domain.mainScreen.model.Offers
 import com.example.effectivemobile.presentation.common.SaveStringLocalSource
 import com.example.effectivemobile.presentation.common.Screens
 import com.example.utils.onError
 import com.example.utils.onSuccess
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 private const val STATE_KEY_MAIN_SCREEN = "FRAGMENT_STATE_KEY"
 
-@HiltViewModel
 class MainScreenViewModel
-    @Inject
+    @AssistedInject
     constructor(
         private val saveStringLocalSource: SaveStringLocalSource,
         private val repository: com.example.domain.mainScreen.MainScreenRepository,
-        private val state: SavedStateHandle,
+        @Assisted private val state: SavedStateHandle,
         private val errorHandler: com.example.utils.ErrorHandel,
         private val mainScreenMapper: MainScreenMapper,
     ) : ViewModel() {
@@ -83,6 +86,24 @@ class MainScreenViewModel
 
         private fun processError(throwable: Throwable) {
             _uiLabels.value = MainView.UiLabel.ShowError("Error", errorHandler.handleError(throwable))
+        }
+
+        @AssistedFactory
+        interface Factory {
+            fun build(
+                @Assisted state: SavedStateHandle,
+            ): MainScreenViewModel
+        }
+
+        class LambdaFactory<T : ViewModel>(
+            savedStateRegistryOwner: SavedStateRegistryOwner,
+            private val create: (handle: SavedStateHandle) -> T,
+        ) : AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
+            override fun <T : ViewModel> create(
+                key: String,
+                modelClass: Class<T>,
+                handle: SavedStateHandle,
+            ): T = create(handle) as T
         }
     }
 
