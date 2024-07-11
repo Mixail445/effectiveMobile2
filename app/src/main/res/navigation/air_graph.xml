@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/air_graph"
+    app:startDestination="@id/mainFragment">
+
+    <dialog
+        android:id="@+id/dialogSearch"
+        android:name="com.example.main.ui.mainscreen.dialog.DialogSearch"
+        android:label="DialogSearch"
+        tools:layout="@layout/fragment_search_dialog">
+        <action
+            android:id="@+id/action_dialogSearch_to_choiceCountryFragment"
+            app:destination="@id/choiceCountryFragment"
+            app:popUpTo="@id/air_graph"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.main.ui.mainscreen.MainFragment"
+        android:label="BottomFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_dialogSearch"
+            app:destination="@id/dialogSearch" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/choiceCountryFragment"
+        android:name="com.example.choiceCountry.ui.ChoiceCountryFragment"
+        android:label="ChoiceCountryFragment"
+        tools:layout="@layout/fragment_choice_country">
+        <action
+            android:id="@+id/action_choiceCountryFragment_to_allTicketsFragment"
+            app:destination="@id/allTicketsFragment"
+            app:popUpTo="@id/choiceCountryFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="bottom_title"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allTicketsFragment"
+        android:name="com.example.allTickets.ui.AllTicketsFragment"
+        android:label="AllTicketsFragment"
+        tools:layout="@layout/fragment_all_tickets">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="bottom_title"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/bottomFragment"
-        android:name="com.example.effectivemobile.presentation.bottomFragment.BottomFragment"
+        android:name="com.example.effectivemobile.presentation.BottomFragment"
         android:label="BottomFragment"
         tools:layout="@layout/fragment_bottom_nav"/>
 

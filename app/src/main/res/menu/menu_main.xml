@@ -8,23 +8,23 @@
         android:icon="@drawable/plane"
         />
     <item
-        android:id="@+id/emptyFragment2"
+        android:id="@+id/hotelsFragment2"
         android:title="@string/hotel"
         android:icon="@drawable/hotel" />
     <item
-        android:id="@+id/emptyFragment3"
+        android:id="@+id/locationFragment"
         android:title="@string/map"
         android:icon="@drawable/point_map"
         />
     <item
-        android:id="@+id/emptyFragment4"
+        android:id="@+id/subscribesFragment"
         android:title="@string/subcribe"
         android:icon="@drawable/notification"
         />
     <item
-        android:id="@+id/emptyFragment5"
+        android:id="@+id/profileFragment"
         android:title="@string/profile"
-        android:icon="@drawable/person"
+        android:icon="@drawable/nite"
         />
 
 </menu>

@@ -1,7 +1,10 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.example.utils
 
-import java.time.* // ktlint-disable no-wildcard-imports
+import java.time.*
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 fun LocalDateTime.format(pattern: String): String? {
     val formatter = DateTimeFormatter.ofPattern(pattern)
@@ -44,19 +47,23 @@ object DateUtils {
             null
         }
 
-    fun getCalendarUiDate(date: LocalDateTime?): String {
-        return if (date == null) {
+    fun getCalendarUiDate(date: LocalDateTime?): String =
+        if (date == null) {
             ""
         } else {
             date.format(DateTimeFormatter.ofPattern("dd MMMM"))
         }
-    }
+
     fun formatDateString(dateString: String): String {
         val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val outputFormatter = DateTimeFormatter.ofPattern("dd MMMM")
 
-        val localDate = LocalDate.parse(dateString, inputFormatter)
-        return localDate.format(outputFormatter)
+        return try {
+            val localDate = LocalDate.parse(dateString, inputFormatter)
+            localDate.format(outputFormatter)
+        } catch (e: DateTimeParseException) {
+            "Ошибка при обработке даты"
+        }
     }
 
     fun getCurrentDate() = LocalDateTime.now().format("yyyy-MM-dd")

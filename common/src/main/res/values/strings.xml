@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">effectiveMobile</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="sorry_something_went_wrong">Sorry something went wrong</string>
+    <string name="sorry_connection_error">Sorry connection error</string>
+    <string name="ticket">Авиабилеты</string>
+    <string name="hotel">Отели</string>
+    <string name="map">Короче</string>
+    <string name="profile">Профиль</string>
+    <string name="subcribe">Подписки</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_page_title">Поиск дешевых авиабилетов</string>
+    <string name="to">Куда - Москва</string>
+    <string name="from">Куда - Турция</string>
+    <string name="fly_with_music">Музыкально отлететь</string>
+    <string name="die_antwoord">Die Antwoord</string>
+    <string name="trip">Сложный маршрут</string>
+
+    <string name="budapest">Будапешт</string>
+    <string name="price_example">от 22 264 ₽</string>
+    <string name="wherever">Куда угодно</string>
+    <string name="weekends">Выходные</string>
+    <string name="istanbul">Стамбул</string>
+    <string name="popular">Популярное направление</string>
+    <string name="sochi">Сочи</string>
+    <string name="minsk">Минск</string>
+    <string name="turn_back">обратно</string>
+    <string name="example_date">24 фев, сб</string>
+    <string name="one_econom">1,эконом</string>
+    <string name="filter">фильтр</string>
+    <string name="airline">Уральские авиалинии</string>
+    <string name="price">2 390 ₽</string>
+    <string name="times">07:00 09:10 10:00 11:00 12:00 13:00 12:00 13:30</string>
+    <string name="direct_flights">Прямые рейсы</string>
+    <string name="allTickets">Посмотреть все билеты</string>
+    <string name="price_graphic">График цен</string>
+    <string name="flightDirectionTxt">Москва-Сочи</string>
+    <string name="flightInfo">23 февраля, 1 пассажир</string>
+    <string name="arrival">Прилет вечером</string>
+    <string name="example_time">17:45</string>
+    <string name="dme">DME</string>
+    <string name="infoAboutFlight">4ч в пути / Без пересадок</string>
+    <string name="subscribe">Подписка на цену</string>
+
+
+
+</resources>

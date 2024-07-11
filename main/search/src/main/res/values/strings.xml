@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+     <!--TODO() change this name-->
+    <string name="nama_tickets_1">Уральские авиалинии</string>
+    <string name="name_tickets_2">07:00 09:10 10:00 11:00 12:00 13:00 12:00</string>
+    <string name="name_tickets_3">2 390</string>
+    <string name="name_tickets_4">Самый удобный</string>
+    <string name="name_tickets_5">6 990</string>
+    <string name="name_tickets_6">3:15</string>
+    <string name="name_tickets_7">7:10</string>
+    <string name="name_tickets_8">VKO</string>
+    <string name="name_tickets_9">AER</string>
+    <string name="name_tickets_0">3.5 ч в пути</string>
+    <string name="name_tickets_10">/без пересадок</string>
+    <string name="name_tickets_12">—</string>
+    <string name="name_tickets_14">₽</string>
+    <string name="name_tickets_16">Показать все</string>
+    <string name="name_tickets_17">Прямые рейсы</string>
+    <string name="name_tickets_18">График цен</string>
+    <string name="name_tickets_19">Фильтр</string>
+    <string name="name_tickets_20">23 февраля, 1 пассажир</string>
+    <string name="name_tickets_21">Мосвка-Сочи</string>
+    <string name="name_tickets_22">Минск</string>
+    <string name="name_tickets_23">Сочи</string>
+    <string name="name_tickets_24">+ обратно</string>
+    <string name="name_tickets_25">24 фев, cуб</string>
+    <string name="name_tickets_26">1,эконом</string>
+    <string name="name_tickets_27">фильтр</string>
+    <string name="name_tickets_28">Посмотреть все билеты</string>
+    <string name="name_tickets_29">Подписка на цену</string>
+</resources>

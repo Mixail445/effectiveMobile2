@@ -5,26 +5,25 @@
     android:id="@+id/bottom_graph"
     app:startDestination="@id/air_graph">
 
-    <fragment
-        android:id="@+id/emptyFragment2"
-        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
-        android:label="EmptyFragment"
-        tools:layout="@layout/fragment_empty_screen" />
-
-    <fragment
-        android:id="@+id/emptyFragment3"
-        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
-        android:label="EmptyFragment"
-        tools:layout="@layout/fragment_empty_screen" />
-    <fragment
-        android:id="@+id/emptyFragment4"
-        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
-        android:label="EmptyFragment"
-        tools:layout="@layout/fragment_empty_screen" />
-    <fragment
-        android:id="@+id/emptyFragment5"
-        android:name="com.example.effectivemobile.presentation.emptyFragment.EmptyFragment"
-        android:label="EmptyFragment"
-        tools:layout="@layout/fragment_empty_screen" />
     <include app:graph="@navigation/air_graph" />
+    <fragment
+        android:id="@+id/hotelsFragment2"
+        android:name="com.example.hotels.HotelsFragment"
+        android:label="HotelsFragment"
+        tools:layout="@layout/fragment_hotels"/>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.locations.LocationFragment"
+        android:label="LocationFragment"
+        tools:layout="@layout/fragment_location"/>
+    <fragment
+        android:id="@+id/subscribesFragment"
+        android:name="com.example.subscribes.SubscribesFragment"
+        android:label="SubscribesFragment"
+        tools:layout="@layout/fragment_subscribes"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>
