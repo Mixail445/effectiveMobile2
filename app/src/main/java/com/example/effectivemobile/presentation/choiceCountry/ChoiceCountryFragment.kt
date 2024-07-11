@@ -1,5 +1,6 @@
 package com.example.effectivemobile.presentation.choiceCountry
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.navArgs
+import com.example.effectivemobile.appComponent
 import com.example.effectivemobile.databinding.FragmentChoiceCountryBinding
 import com.example.effectivemobile.presentation.common.*
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
-@AndroidEntryPoint
 class ChoiceCountryFragment : Fragment() {
     private var _binding: FragmentChoiceCountryBinding? = null
     private val binding get() = _binding!!
@@ -24,6 +24,11 @@ class ChoiceCountryFragment : Fragment() {
     lateinit var routerChild: Router
 
     private val navArgs by navArgs<ChoiceCountryFragmentArgs>()
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     @Inject
     lateinit var factory: ChoiceCountryViewModel.Factory

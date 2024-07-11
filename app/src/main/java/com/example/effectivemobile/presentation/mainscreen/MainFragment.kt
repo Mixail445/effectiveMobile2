@@ -1,29 +1,43 @@
 package com.example.effectivemobile.presentation.mainscreen
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.SavedStateHandle
+import com.example.effectivemobile.appComponent
 import com.example.effectivemobile.databinding.FragmentMainBinding
 import com.example.effectivemobile.presentation.common.RecyclerViewItemDecoration
 import com.example.effectivemobile.presentation.common.Router
 import com.example.effectivemobile.presentation.common.launchAndRepeatWithViewLifecycle
 import com.example.effectivemobile.presentation.common.subscribe
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
-@AndroidEntryPoint
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainScreenViewModel by viewModels()
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this@MainFragment)
+        super.onAttach(context)
+    }
+
+    @Inject
+    lateinit var factory: MainScreenViewModel.Factory
+
+    private val viewModel: MainScreenViewModel by viewModels {
+        MainScreenViewModel.LambdaFactory(this) { handle: SavedStateHandle ->
+            factory.build(
+                handle,
+            )
+        }
+    }
     private val adapter = MainScreenAdapter()
 
     @Named("Child")
@@ -56,7 +70,7 @@ class MainFragment : Fragment() {
 
     private fun handleUiLabel(uiLabel: MainView.UiLabel): Unit =
         when (uiLabel) {
-            is MainView.UiLabel.ShowError -> drc()
+            is MainView.UiLabel.ShowError -> Unit
             is MainView.UiLabel.ShowSearchDialog -> routerChild.navigateTo(uiLabel.screen)
         }
 
@@ -65,10 +79,6 @@ class MainFragment : Fragment() {
             adapter.items = model.offersItems
             binding.etInputOne.setText(model.textEdit)
         }
-
-    fun drc() {
-        Log.d("error", "error")
-    }
 
     private fun initView() {
         with(binding) {

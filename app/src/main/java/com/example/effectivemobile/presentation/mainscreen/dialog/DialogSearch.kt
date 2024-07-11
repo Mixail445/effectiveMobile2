@@ -1,6 +1,7 @@
 package com.example.effectivemobile.presentation.mainscreen.dialog
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.navArgs
+import com.example.effectivemobile.appComponent
 import com.example.effectivemobile.databinding.FragmentSearchDialogBinding
 import com.example.effectivemobile.presentation.common.Router
 import com.example.effectivemobile.presentation.common.launchAndRepeatWithViewLifecycle
@@ -16,11 +18,9 @@ import com.example.effectivemobile.presentation.common.subscribe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
 
-@AndroidEntryPoint
 class DialogSearch : BottomSheetDialogFragment() {
     private var _binding: FragmentSearchDialogBinding? = null
     private val binding get() = _binding!!
@@ -48,6 +48,11 @@ class DialogSearch : BottomSheetDialogFragment() {
     ) {
         initViewModel()
         initView()
+    }
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(
